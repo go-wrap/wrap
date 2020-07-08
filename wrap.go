@@ -22,8 +22,21 @@ func wrap(s string, n int, b *strings.Builder) {
 
 // Wrap wraps the given string forcefully with the given length.
 func Wrap(s string, n int) string {
-	b := &strings.Builder{}
-	wrap(s, n, b)
+	b := strings.Builder{}
+	wrap(s, n, &b)
+	return b.String()
+}
+
+// Force wraps the given string without checking for newline characters.
+func Force(s string, n int) string {
+	b := strings.Builder{}
+	i := 0
+	for i+n < len(s) {
+		b.WriteString(s[i : i+n])
+		b.WriteByte('\n')
+		i += n
+	}
+	b.WriteString(s[i:])
 	return b.String()
 }
 
@@ -59,8 +72,8 @@ func at(s string, c byte, n int, b *strings.Builder) {
 // If the given byte only appears after the given length, the string will be
 // wrapped at the first appearance. The string will be unaltered otherwise.
 func At(s string, c byte, n int) string {
-	b := &strings.Builder{}
-	at(s, c, n, b)
+	b := strings.Builder{}
+	at(s, c, n, &b)
 	return b.String()
 }
 

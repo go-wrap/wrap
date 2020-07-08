@@ -32,6 +32,24 @@ func TestWrap(t *testing.T) {
 	}
 }
 
+var forceTests = []struct {
+	in  string
+	out string
+	n   int
+}{
+	{"", "", 10},
+	{"Hello world!", "Hello worl\nd!", 10},
+	{"Hello world!", "Hello world!", 20},
+	{"Hello\nworld!", "Hello\nworl\nd!", 10},
+}
+
+func TestForce(t *testing.T) {
+	for _, tt := range forceTests {
+		out := Force(tt.in, tt.n)
+		equals(t, tt.out, out)
+	}
+}
+
 var spaceTests = []struct {
 	in  string
 	out string
@@ -47,6 +65,6 @@ var spaceTests = []struct {
 func TestSpace(t *testing.T) {
 	for _, tt := range spaceTests {
 		out := Space(tt.in, tt.n)
-		equals(t, out, tt.out)
+		equals(t, tt.out, out)
 	}
 }
