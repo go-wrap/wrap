@@ -28,7 +28,7 @@ var wrapTests = []struct {
 func TestWrap(t *testing.T) {
 	for _, tt := range wrapTests {
 		out := Wrap(tt.in, tt.n)
-		equals(t, out, tt.out)
+		equals(t, tt.out, out)
 	}
 }
 
